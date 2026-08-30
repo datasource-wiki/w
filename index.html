@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataSource - Wikipedia</title>
+    <title>Wikipedia - DataSource Wiki</title>
     <style>
+        * { box-sizing: border-box; }
         body {
             font-family: sans-serif;
             background-color: #f6f6f6;
@@ -13,53 +14,53 @@
             padding: 0;
             line-height: 1.6;
         }
-
         #container {
             display: flex;
             max-width: 1400px;
             margin: 0 auto;
             background-color: #ffffff;
+            min-height: 100vh;
         }
-
-        /* Sidebar Styling */
         #sidebar {
-            width: 160px;
+            width: 170px;
             padding: 1em;
             font-size: 0.85em;
             border-right: 1px solid #a7d7f9;
             background-color: #f6f6f6;
+            flex-shrink: 0;
         }
-
-        #sidebar img.logo {
-            width: 135px;
-            margin-bottom: 1em;
+        #sidebar img.logo { width: 135px; margin-bottom: 1em; }
+        #sidebar ul { list-style-type: none; padding: 0; margin: 0 0 1.5em 0; }
+        #sidebar li { margin-bottom: 0.4em; }
+        #sidebar a { color: #0645ad; text-decoration: none; }
+        #sidebar a:hover { text-decoration: underline; }
+        #main { flex: 1; display: flex; flex-direction: column; }
+        #header-tabs {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5em 2.5em 0 2.5em;
+            background-color: #ffffff;
+            border-bottom: 1px solid #a2a9b1;
+            font-size: 0.85em;
         }
-
-        #sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0 0 1.5em 0;
-        }
-
-        #sidebar li {
-            margin-bottom: 0.4em;
-        }
-
-        #sidebar a {
+        .tab-group { display: flex; gap: 0.5em; }
+        .tab {
+            padding: 0.5em 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            border-bottom: none;
+            border-radius: 2px 2px 0 0;
             color: #0645ad;
             text-decoration: none;
         }
-
-        #sidebar a:hover {
-            text-decoration: underline;
+        .tab.active {
+            background-color: #ffffff;
+            font-weight: bold;
+            color: #202122;
+            border-bottom: 1px solid #ffffff;
+            margin-bottom: -1px;
         }
-
-        /* Main Content Styling */
-        #content {
-            flex: 1;
-            padding: 1.5em 2.5em;
-        }
-
+        #content { padding: 1.5em 2.5em; flex: 1; }
         h1#firstHeading {
             font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
             font-size: 1.8em;
@@ -68,71 +69,6 @@
             margin-top: 0;
             padding-bottom: 0.2em;
         }
-
-        /* Infobox Styling */
-        .infobox {
-            float: right;
-            clear: right;
-            margin: 0 0 1em 1em;
-            border: 1px solid #a2a9b1;
-            background-color: #f8f9fa;
-            padding: 5px;
-            font-size: 0.88em;
-            width: 270px;
-            border-spacing: 0;
-        }
-
-        .infobox caption {
-            font-size: 1.25em;
-            font-weight: bold;
-            padding: 5px;
-            background-color: #cedff2;
-        }
-
-        .infobox th {
-            vertical-align: top;
-            text-align: left;
-            padding: 3px 5px;
-        }
-
-        .infobox td {
-            vertical-align: top;
-            padding: 3px 5px;
-        }
-
-        /* Toc Styling */
-        .toc {
-            background-color: #f8f9fa;
-            border: 1px solid #a2a9b1;
-            padding: 7px;
-            font-size: 0.9em;
-            display: table;
-            margin-bottom: 1em;
-        }
-
-        .toc h2 {
-            font-size: 100%;
-            font-weight: bold;
-            display: inline;
-            margin: 0;
-        }
-
-        .toc ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 0;
-        }
-
-        .toc ul ul {
-            margin-left: 1.5em;
-        }
-
-        .toc a {
-            color: #0645ad;
-            text-decoration: none;
-        }
-
-        /* Content Elements */
         h2 {
             font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
             font-weight: normal;
@@ -140,119 +76,68 @@
             padding-bottom: 0.1em;
             margin-top: 1em;
         }
-
-        a {
-            color: #0645ad;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        a.new {
-            color: #ba0000;
-        }
-
-        code {
+        a { color: #0645ad; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        a.new { color: #ba0000; }
+        .welcome-box {
             background-color: #f8f9fa;
-            border: 1px solid #eaecf0;
-            padding: 1px 4px;
-            font-family: monospace;
+            border: 1px solid #a2a9b1;
+            padding: 1.2em;
+            margin-bottom: 1.5em;
+            text-align: center;
         }
+        .welcome-box h2 { border-bottom: none; margin-top: 0; }
     </style>
 </head>
 <body>
 
 <div id="container">
-    <!-- Left Navigation Sidebar -->
     <div id="sidebar">
-        <img class="logo" src="https://en.wikipedia.org/static/images/icons/wikipedia.png" alt="Wikipedia Logo">
+        <a href="index.html"><img class="logo" src="https://en.wikipedia.org/static/images/icons/wikipedia.png" alt="Wikipedia Logo"></a>
         <ul>
-            <li><a href="#">Main page</a></li>
-            <li><a href="#">Contents</a></li>
-            <li><a href="#">Current events</a></li>
-            <li><a href="#">Random article</a></li>
-            <li><a href="#">About Wikipedia</a></li>
+            <li><a href="index.html">Main page</a></li>
+            <li><a href="datasource.html">DataSource article</a></li>
+            <li><a href="404.html">Random article</a></li>
         </ul>
         <strong>Contribute</strong>
         <ul>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Learn to edit</a></li>
-            <li><a href="#">Community portal</a></li>
-            <li><a href="#">Recent changes</a></li>
+            <li><a href="404.html">Help</a></li>
+            <li><a href="404.html">Community portal</a></li>
         </ul>
     </div>
 
-    <!-- Main Article Body -->
-    <div id="content">
-        <h1 id="firstHeading">DataSource</h1>
-        
-        <p>From Wikipedia, the free encyclopedia</p>
-
-        <!-- Right Side Infobox -->
-        <table class="infobox">
-            <caption>DataSource</caption>
-            <tr>
-                <th>Type</th>
-                <td>Software Pattern / Interface</td>
-            </tr>
-            <tr>
-                <th>Domain</th>
-                <td>Data Management, Software Engineering</td>
-            </tr>
-            <tr>
-                <th>Common Implementations</th>
-                <td><a href="#">JDBC</a>, <a href="#">ODBC</a>, <a href="#">ADO.NET</a></td>
-            </tr>
-            <tr>
-                <th>Primary Role</th>
-                <td>Abstraction layer for connection management</td>
-            </tr>
-        </table>
-
-        <p>In computer science and data architecture, a <b>DataSource</b> (or <b>data source</b>) is a name given to the connection set up to a storage repository, such as a database, flat file, or cloud service. It encapsulates the underlying details required to establish access to the physical storage layer, providing a unified abstraction for application software.</p>
-
-        <!-- Table of Contents -->
-        <div class="toc">
-            <h2>Contents</h2>
-            <ul>
-                <li><a href="#overview">1 Overview</a></li>
-                <li><a href="#implementations">2 Implementations</a>
-                    <ul>
-                        <li><a href="#jdbc">2.1 Java Database Connectivity (JDBC)</a></li>
-                        <li><a href="#odbc">2.2 Open Database Connectivity (ODBC)</a></li>
-                    </ul>
-                </li>
-                <li><a href="#see_also">3 See also</a></li>
-                <li><a href="#references">4 References</a></li>
-            </ul>
+    <div id="main">
+        <div id="header-tabs">
+            <div class="tab-group">
+                <span class="tab active">Main Page</span>
+                <a href="404.html" class="tab">Talk</a>
+            </div>
+            <div class="tab-group">
+                <span class="tab active">Read</span>
+                <a href="404.html" class="tab">View source</a>
+                <a href="404.html" class="tab">View history</a>
+            </div>
         </div>
 
-        <h2 id="overview">Overview</h2>
-        <p>A data source acts as a mediator between an application and the raw data payload. By isolating connection settings—such as host IP addresses, authentication credentials, schema configurations, and port definitions—from application logic, developers can alter backend infrastructure without modifying source code.</p>
+        <div id="content">
+            <h1 id="firstHeading">Main Page</h1>
+            
+            <div class="welcome-box">
+                <h2>Welcome to DataSource Wiki</h2>
+                <p>The free technical encyclopedia covering data architecture, connectivity, and enterprise data management.</p>
+            </div>
 
-        <h2 id="implementations">Implementations</h2>
+            <h2>Featured Article</h2>
+            <p><b><a href="datasource.html">DataSource</a></b> is a fundamental software pattern and interface layer in modern application development. It acts as an abstraction layer between code execution and physical storage engines such as relational databases, flat files, or remote microservices.</p>
 
-        <h3 id="jdbc">Java Database Connectivity (JDBC)</h3>
-        <p>In the Java Enterprise landscape, the <code>javax.sql.DataSource</code> interface serves as an alternative to the traditional <code>DriverManager</code> facility. Preferred for enterprise-grade applications, it supports key operational mechanisms such as connection pooling and distributed transactions.</p>
-
-        <h3 id="odbc">Open Database Connectivity (ODBC)</h3>
-        <p>In Microsoft Windows and Unix-like environments, a Data Source Name (<a href="#">DSN</a>) serves as the standard identifier pointing to an ODBC driver and target database pair.</p>
-
-        <h2 id="see_also">See also</h2>
-        <ul>
-            <li><a href="#">Database connection</a></li>
-            <li><a href="#">Object-relational mapping (ORM)</a></li>
-            <li><a href="#">Connection pool</a></li>
-            <li><a class="new" href="#">Data abstraction layer</a></li>
-        </ul>
-
-        <h2 id="references">References</h2>
-        <ol>
-            <li>Oracle Documentation. <i>"Interface DataSource."</i> Java Platform, Enterprise Edition API Specifications.</li>
-            <li>Microsoft Learn. <i>"About Data Sources."</i> Open Database Connectivity (ODBC) Developer Guide.</li>
-        </ol>
+            <h2>Explore Topics</h2>
+            <ul>
+                <li><a href="datasource.html">Database Connectivity Interfaces</a> (JDBC, ODBC)</li>
+                <li><a href="404.html">Connection Pooling & Resource Management</a></li>
+                <li><a href="404.html">Object-Relational Mapping (ORM)</a></li>
+                <li><a href="404.html" class="new">Distributed Data Sources</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
