@@ -137,10 +137,25 @@
             </div>
             <div class="tab-group">
                 <a href="index.html" class="tab">Main Page</a>
-<div>
+<form class="top-search-group" onsubmit="handleSearch(event)">
     <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
-    <button type="button" onclick="const query = document.getElementById('wikiSearchInput').value; location.href='search.html?search=' + encodeURIComponent(query);">Search</button>
-</div>
+    <button type="submit">Search</button>
+</form>
+
+<script>
+function handleSearch(event) {
+    event.preventDefault(); // Prevents default form submission
+    
+    const query = document.getElementById('wikiSearchInput').value;
+    const MAX_LENGTH = 200; // Set your desired character limit here
+
+    if (query.length > MAX_LENGTH) {
+        window.location.href = '404.html';
+    } else {
+        window.location.href = 'search.html?search=' + encodeURIComponent(query);
+    }
+}
+</script>
             </div>
         </div>
 
