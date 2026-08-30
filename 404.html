@@ -39,12 +39,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5em 2.5em 0 2.5em;
+            padding: 0.5em 2.5em;
             background-color: #ffffff;
             border-bottom: 1px solid #a2a9b1;
             font-size: 0.85em;
         }
-        .tab-group { display: flex; gap: 0.5em; }
+        .tab-group { display: flex; gap: 0.5em; align-items: center; }
         .tab {
             padding: 0.5em 0.8em;
             background-color: #f8f9fa;
@@ -65,7 +65,6 @@
             display: flex;
             align-items: center;
             gap: 0.3em;
-            margin-bottom: 0.3em;
         }
         .top-search-group input[type="text"] {
             padding: 0.3em 0.5em;
@@ -81,6 +80,9 @@
             background-color: #f8f9fa;
             border: 1px solid #a2a9b1;
             border-radius: 2px;
+        }
+        .top-search-group button:hover {
+            background-color: #eef1f4;
         }
         #content { padding: 1.5em 2.5em; flex: 1; }
         h1#firstHeading {
@@ -100,47 +102,53 @@
             margin: 1.5em 0;
             border-left: 5px solid #d9534f;
         }
-        .search-box { margin: 1.5em 0; }
-        .search-box input[type="text"] {
-            padding: 0.4em;
-            width: 260px;
-            font-size: 0.9em;
+        .alphabet-index {
+            margin: 1.5em 0;
+            padding: 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            text-align: center;
+            font-size: 0.95em;
+            line-height: 2em;
         }
-        .search-box button {
-            padding: 0.4em 0.8em;
-            font-size: 0.9em;
-            cursor: pointer;
+        .alphabet-index span {
+            font-weight: bold;
+            margin-right: 0.5em;
+            display: block;
+        }
+        .alphabet-index a {
+            padding: 0 0.3em;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div id="container">
+    <div id="sidebar">
+        <a href="index.html"><img class="logo" src="images/logo.jpg" alt="Logo"></a>
+        <ul>
+            <li><a href="index.html">Main page</a></li>
+            <li><a href="datasource.html">DataSource article</a></li>
+            <li><a href="404.html">Random article</a></li>
+        </ul>
+        <strong>Contribute</strong>
+        <ul>
+            <li><a href="404.html">Help</a></li>
+            <li><a href="404.html">Community portal</a></li>
+        </ul>
+    </div>
 
     <div id="main">
         <div id="header-tabs">
-
             <div class="tab-group">
                 <a href="index.html" class="tab">Main Page</a>
-<form class="top-search-group" onsubmit="handleSearch(event)">
-    <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
-    <button type="submit">Search</button>
-</form>
-
-<script>
-function handleSearch(event) {
-    event.preventDefault(); // Prevents default form submission
-    
-    const query = document.getElementById('wikiSearchInput').value;
-    const MAX_LENGTH = 50; // Set your desired character limit here
-
-    if (query.length > MAX_LENGTH) {
-        window.location.href = '404.html';
-    } else {
-        window.location.href = 'search.html?search=' + encodeURIComponent(query);
-    }
-}
-</script>
+            </div>
+            <div class="tab-group">
+                <form class="top-search-group" onsubmit="handleSearch(event)">
+                    <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
+                    <button type="submit">Search</button>
+                </form>
             </div>
         </div>
 
@@ -151,9 +159,7 @@ function handleSearch(event) {
                 <p>It may have been deleted, moved, or misspelled in your request.</p>
             </div>
 
-
-            </ul>
-           <div class="alphabet-index">
+            <div class="alphabet-index">
                 <span>Browse by letter:</span>
                 <a href="search.html?search=A">A</a> |
                 <a href="search.html?search=B">B</a> |
@@ -182,7 +188,6 @@ function handleSearch(event) {
                 <a href="search.html?search=Y">Y</a> |
                 <a href="search.html?search=Z">Z</a>
             </div>
-
         </div>
     </div>
 </div>
@@ -191,7 +196,7 @@ function handleSearch(event) {
 function handleSearch(event) {
     event.preventDefault();
     const query = document.getElementById('wikiSearchInput').value;
-    const MAX_LENGTH = 200;
+    const MAX_LENGTH = 50;
 
     if (query.length > MAX_LENGTH) {
         window.location.href = '404.html';
