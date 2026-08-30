@@ -137,10 +137,10 @@
             </div>
             <div class="tab-group">
                 <a href="index.html" class="tab">Main Page</a>
-                <div class="top-search-group">
-                    <input type="text" placeholder="Search DataSource Wiki...">
-                    <button type="button" onclick="location.href='404.html'">Search</button>
-                </div>
+<div>
+    <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
+    <button type="button" onclick="const query = document.getElementById('wikiSearchInput').value; location.href='search.html?search=' + encodeURIComponent(query);">Search</button>
+</div>
             </div>
         </div>
 
@@ -151,12 +151,7 @@
                 <p>It may have been deleted, moved, or misspelled in your request.</p>
             </div>
 
-            <p>You can search for this topic across other pages on the wiki:</p>
 
-            <div class="search-box">
-                <input type="text" placeholder="Search DataSource Wiki...">
-                <button type="button" onclick="location.href='404.html'">Search</button>
-            </div>
 
             <h3>Navigation Help</h3>
             <ul>
