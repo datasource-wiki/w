@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Wikipedia</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: sans-serif;
+            background-color: #f6f6f6;
+            color: #202122;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        #container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+        }
+        #sidebar {
+            width: 170px;
+            padding: 1em;
+            font-size: 0.85em;
+            border-right: 1px solid #a7d7f9;
+            background-color: #f6f6f6;
+            flex-shrink: 0;
+        }
+        #sidebar img.logo { width: 135px; margin-bottom: 1em; }
+        #sidebar ul { list-style-type: none; padding: 0; margin: 0 0 1.5em 0; }
+        #sidebar li { margin-bottom: 0.4em; }
+        #sidebar a { color: #0645ad; text-decoration: none; }
+        #sidebar a:hover { text-decoration: underline; }
+        #main { flex: 1; display: flex; flex-direction: column; }
+        #header-tabs {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5em 2.5em 0 2.5em;
+            background-color: #ffffff;
+            border-bottom: 1px solid #a2a9b1;
+            font-size: 0.85em;
+        }
+        .tab-group { display: flex; gap: 0.5em; }
+        .tab {
+            padding: 0.5em 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            border-bottom: none;
+            border-radius: 2px 2px 0 0;
+            color: #0645ad;
+            text-decoration: none;
+        }
+        .tab.active {
+            background-color: #ffffff;
+            font-weight: bold;
+            color: #202122;
+            border-bottom: 1px solid #ffffff;
+            margin-bottom: -1px;
+        }
+        #content { padding: 1.5em 2.5em; flex: 1; }
+        h1#firstHeading {
+            font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+            font-size: 1.8em;
+            font-weight: normal;
+            border-bottom: 1px solid #a2a9b1;
+            margin-top: 0;
+            padding-bottom: 0.2em;
+        }
+        a { color: #0645ad; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .error-box {
+            background-color: #fdf2f2;
+            border: 1px solid #f5c6cb;
+            padding: 1.5em;
+            margin: 1.5em 0;
+            border-left: 5px solid #d9534f;
+        }
+        .search-box { margin: 1.5em 0; }
+        .search-box input[type="text"] {
+            padding: 0.4em;
+            width: 260px;
+            font-size: 0.9em;
+        }
+        .search-box button {
+            padding: 0.4em 0.8em;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="sidebar">
+        <a href="index.html"><img class="logo" src="https://en.wikipedia.org/static/images/icons/wikipedia.png" alt="Wikipedia Logo"></a>
+        <ul>
+            <li><a href="index.html">Main page</a></li>
+            <li><a href="datasource.html">DataSource article</a></li>
+            <li><a href="404.html">Random article</a></li>
+        </ul>
+        <strong>Contribute</strong>
+        <ul>
+            <li><a href="404.html">Help</a></li>
+            <li><a href="404.html">Community portal</a></li>
+        </ul>
+    </div>
+
+    <div id="main">
+        <div id="header-tabs">
+            <div class="tab-group">
+                <span class="tab active">Error</span>
+            </div>
+            <div class="tab-group">
+                <a href="index.html" class="tab">Main Page</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1 id="firstHeading">Bad title / Page not found</h1>
+            <p style="font-size: 0.85em; color: #54595d; margin-top: -0.5em;">From Wikipedia, the free encyclopedia</p>
+
+            <div class="error-box">
+                <strong>The requested page title was invalid, empty, or does not exist on this wiki.</strong>
+                <p>It may have been deleted, moved, or misspelled in your request.</p>
+            </div>
+
+            <p>You can search for this topic across other pages on the wiki:</p>
+
+            <div class="search-box">
+                <input type="text" placeholder="Search DataSource Wiki...">
+                <button type="button" onclick="location.href='404.html'">Search</button>
+            </div>
+
+            <h3>Navigation Help</h3>
+            <ul>
+                <li>Return to the <a href="index.html">Main Page</a>.</li>
+                <li>View the <a href="datasource.html">DataSource article</a>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
