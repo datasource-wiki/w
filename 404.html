@@ -153,9 +153,53 @@ function handleSearch(event) {
 
 
             </ul>
+           <div class="alphabet-index">
+                <span>Browse by letter:</span>
+                <a href="search.html?search=A">A</a> |
+                <a href="search.html?search=B">B</a> |
+                <a href="search.html?search=C">C</a> |
+                <a href="search.html?search=D">D</a> |
+                <a href="search.html?search=E">E</a> |
+                <a href="search.html?search=F">F</a> |
+                <a href="search.html?search=G">G</a> |
+                <a href="search.html?search=H">H</a> |
+                <a href="search.html?search=I">I</a> |
+                <a href="search.html?search=J">J</a> |
+                <a href="search.html?search=K">K</a> |
+                <a href="search.html?search=L">L</a> |
+                <a href="search.html?search=M">M</a> |
+                <a href="search.html?search=N">N</a> |
+                <a href="search.html?search=O">O</a> |
+                <a href="search.html?search=P">P</a> |
+                <a href="search.html?search=Q">Q</a> |
+                <a href="search.html?search=R">R</a> |
+                <a href="search.html?search=S">S</a> |
+                <a href="search.html?search=T">T</a> |
+                <a href="search.html?search=U">U</a> |
+                <a href="search.html?search=V">V</a> |
+                <a href="search.html?search=W">W</a> |
+                <a href="search.html?search=X">X</a> |
+                <a href="search.html?search=Y">Y</a> |
+                <a href="search.html?search=Z">Z</a>
+            </div>
+
         </div>
     </div>
 </div>
+
+<script>
+function handleSearch(event) {
+    event.preventDefault();
+    const query = document.getElementById('wikiSearchInput').value;
+    const MAX_LENGTH = 200;
+
+    if (query.length > MAX_LENGTH) {
+        window.location.href = '404.html';
+    } else {
+        window.location.href = 'search.html?search=' + encodeURIComponent(query);
+    }
+}
+</script>
 
 </body>
 </html>
