@@ -35,31 +35,38 @@
         #sidebar a { color: #0645ad; text-decoration: none; }
         #sidebar a:hover { text-decoration: underline; }
         #main { flex: 1; display: flex; flex-direction: column; }
-        #header-tabs {
+        
+        /* Header search bar styles */
+        #header-search {
             display: flex;
-            justify-content: space-between;
-            padding: 0.5em 2.5em 0 2.5em;
+            justify-content: flex-end;
+            padding: 0.8em 2.5em;
             background-color: #ffffff;
             border-bottom: 1px solid #a2a9b1;
-            font-size: 0.85em;
         }
-        .tab-group { display: flex; gap: 0.5em; }
-        .tab {
-            padding: 0.5em 0.8em;
+        .top-search-group {
+            display: flex;
+            gap: 0.3em;
+        }
+        .top-search-group input[type="text"] {
+            padding: 0.4em 0.6em;
+            font-size: 0.85em;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+            width: 250px;
+        }
+        .top-search-group button {
+            padding: 0.4em 0.8em;
+            font-size: 0.85em;
+            cursor: pointer;
             background-color: #f8f9fa;
             border: 1px solid #a2a9b1;
-            border-bottom: none;
-            border-radius: 2px 2px 0 0;
-            color: #0645ad;
-            text-decoration: none;
+            border-radius: 2px;
         }
-        .tab.active {
-            background-color: #ffffff;
-            font-weight: bold;
-            color: #202122;
-            border-bottom: 1px solid #ffffff;
-            margin-bottom: -1px;
+        .top-search-group button:hover {
+            background-color: #eef1f4;
         }
+
         #content { padding: 1.5em 2.5em; flex: 1; }
         h1#firstHeading {
             font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
@@ -87,24 +94,51 @@
             text-align: center;
         }
         .welcome-box h2 { border-bottom: none; margin-top: 0; }
+
+        /* Alphabetical index styles */
+        .alphabet-index {
+            margin: 1.5em 0;
+            padding: 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            text-align: center;
+            font-size: 0.95em;
+            line-height: 2em;
+        }
+        .alphabet-index span {
+            font-weight: bold;
+            margin-right: 0.5em;
+            display: block;
+        }
+        .alphabet-index a {
+            padding: 0 0.3em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div id="container">
-
+    <div id="sidebar">
+        <a href="index.html"><img class="logo" src="images/logo.jpg" alt="Logo"></a>
+        <ul>
+            <li><a href="index.html">Main page</a></li>
+            <li><a href="datasource.html">DataSource article</a></li>
+            <li><a href="404.html">Random article</a></li>
+        </ul>
+        <strong>Contribute</strong>
+        <ul>
+            <li><a href="404.html">Help</a></li>
+            <li><a href="404.html">Community portal</a></li>
+        </ul>
+    </div>
 
     <div id="main">
-        <div id="header-tabs">
-            <div class="tab-group">
-                <span class="tab active">Main Page</span>
-                <a href="404.html" class="tab">Talk</a>
-            </div>
-            <div class="tab-group">
-                <span class="tab active">Read</span>
-                <a href="404.html" class="tab">View source</a>
-                <a href="404.html" class="tab">View history</a>
-            </div>
+        <div id="header-search">
+            <form class="top-search-group" onsubmit="handleSearch(event)">
+                <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
+                <button type="submit">Search</button>
+            </form>
         </div>
 
         <div id="content">
@@ -115,11 +149,53 @@
                 <p>The free wiki that covers everything.</p>
             </div>
 
+            <div class="alphabet-index">
+                <span>Browse by letter:</span>
+                <a href="search.html?search=A">A</a> |
+                <a href="search.html?search=B">B</a> |
+                <a href="search.html?search=C">C</a> |
+                <a href="search.html?search=D">D</a> |
+                <a href="search.html?search=E">E</a> |
+                <a href="search.html?search=F">F</a> |
+                <a href="search.html?search=G">G</a> |
+                <a href="search.html?search=H">H</a> |
+                <a href="search.html?search=I">I</a> |
+                <a href="search.html?search=J">J</a> |
+                <a href="search.html?search=K">K</a> |
+                <a href="search.html?search=L">L</a> |
+                <a href="search.html?search=M">M</a> |
+                <a href="search.html?search=N">N</a> |
+                <a href="search.html?search=O">O</a> |
+                <a href="search.html?search=P">P</a> |
+                <a href="search.html?search=Q">Q</a> |
+                <a href="search.html?search=R">R</a> |
+                <a href="search.html?search=S">S</a> |
+                <a href="search.html?search=T">T</a> |
+                <a href="search.html?search=U">U</a> |
+                <a href="search.html?search=V">V</a> |
+                <a href="search.html?search=W">W</a> |
+                <a href="search.html?search=X">X</a> |
+                <a href="search.html?search=Y">Y</a> |
+                <a href="search.html?search=Z">Z</a>
+            </div>
 
-            </ul>
         </div>
     </div>
 </div>
+
+<script>
+function handleSearch(event) {
+    event.preventDefault();
+    const query = document.getElementById('wikiSearchInput').value;
+    const MAX_LENGTH = 200;
+
+    if (query.length > MAX_LENGTH) {
+        window.location.href = '404.html';
+    } else {
+        window.location.href = 'search.html?search=' + encodeURIComponent(query);
+    }
+}
+</script>
 
 </body>
 </html>
