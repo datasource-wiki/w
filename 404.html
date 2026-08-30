@@ -147,7 +147,7 @@ function handleSearch(event) {
     event.preventDefault(); // Prevents default form submission
     
     const query = document.getElementById('wikiSearchInput').value;
-    const MAX_LENGTH = 200; // Set your desired character limit here
+    const MAX_LENGTH = 50; // Set your desired character limit here
 
     if (query.length > MAX_LENGTH) {
         window.location.href = '404.html';
