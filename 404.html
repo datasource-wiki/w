@@ -38,6 +38,7 @@
         #header-tabs {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 0.5em 2.5em 0 2.5em;
             background-color: #ffffff;
             border-bottom: 1px solid #a2a9b1;
@@ -59,6 +60,27 @@
             color: #202122;
             border-bottom: 1px solid #ffffff;
             margin-bottom: -1px;
+        }
+        .top-search-group {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            margin-bottom: 0.3em;
+        }
+        .top-search-group input[type="text"] {
+            padding: 0.3em 0.5em;
+            font-size: 0.85em;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+            width: 200px;
+        }
+        .top-search-group button {
+            padding: 0.3em 0.6em;
+            font-size: 0.85em;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
         }
         #content { padding: 1.5em 2.5em; flex: 1; }
         h1#firstHeading {
@@ -115,6 +137,10 @@
             </div>
             <div class="tab-group">
                 <a href="index.html" class="tab">Main Page</a>
+                <div class="top-search-group">
+                    <input type="text" placeholder="Search Wikipedia...">
+                    <button type="button" onclick="location.href='404.html'">Search</button>
+                </div>
             </div>
         </div>
 
