@@ -1,1 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Imperial March - DataSource Wiki</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: sans-serif;
+            background-color: #f6f6f6;
+            color: #202122;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        #container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #header-tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8em 2.5em;
+            background-color: #ffffff;
+            border-bottom: 1px solid #a2a9b1;
+            font-size: 0.85em;
+        }
+        .header-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        .header-logo-group a {
+            color: #0645ad;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .top-search-group {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+        }
+        .top-search-group input[type="text"] {
+            padding: 0.4em 0.6em;
+            font-size: 0.85em;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+            width: 250px;
+        }
+        .top-search-group button {
+            padding: 0.4em 0.8em;
+            font-size: 0.85em;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .top-search-group button:hover {
+            background-color: #eef1f4;
+        }
+        #content {
+            padding: 2em 2.5em;
+            flex: 1;
+        }
+        h1#firstHeading {
+            font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+            font-size: 1.8em;
+            font-weight: normal;
+            border-bottom: 1px solid #a2a9b1;
+            margin-top: 0;
+            padding-bottom: 0.2em;
+        }
+        a { color: #0645ad; text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
+        /* Article layout */
+        .article-box {
+            display: flex;
+            gap: 2em;
+            margin-top: 1.5em;
+        }
+        .article-body {
+            flex: 1;
+        }
+        .infobox {
+            width: 280px;
+            border: 1px solid #a2a9b1;
+            background-color: #f8f9fa;
+            padding: 1em;
+            font-size: 0.88em;
+            flex-shrink: 0;
+        }
+        .infobox h3 {
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 0.3em;
+        }
+        .infobox table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .infobox td {
+            padding: 0.3em 0;
+            vertical-align: top;
+        }
+        .infobox td.label {
+            font-weight: bold;
+            width: 40%;
+        }
+
+        /* Audio player box */
+        .audio-player-box {
+            background-color: #000;
+            color: #ffe81f;
+            padding: 1.2em;
+            border-radius: 4px;
+            margin: 1.5em 0;
+            text-align: center;
+            font-family: monospace;
+        }
+        .audio-player-box button {
+            background-color: #ffe81f;
+            color: #000;
+            border: none;
+            padding: 0.6em 1.2em;
+            font-weight: bold;
+            font-size: 0.9em;
+            cursor: pointer;
+            border-radius: 2px;
+            margin-top: 0.5em;
+        }
+        .audio-player-box button:hover {
+            background-color: #e5d01a;
+        }
+
+        /* Alphabetical index styles */
+        .alphabet-index {
+            margin-top: 3em;
+            padding: 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            text-align: center;
+            font-size: 0.95em;
+            line-height: 2em;
+        }
+        .alphabet-index span {
+            font-weight: bold;
+            margin-right: 0.5em;
+            display: block;
+        }
+        .alphabet-index a {
+            padding: 0 0.3em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="header-tabs">
+        <div class="header-logo-group">
+            <a href="index.html">DataSource Wiki</a>
+        </div>
+        <form class="top-search-group" onsubmit="handleSearch(event)">
+            <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div id="content">
+        <h1 id="firstHeading">The Imperial March (Darth Vader's Theme)</h1>
+
+        <div class="article-box">
+            <div class="article-body">
+                <p><strong>"The Imperial March"</strong> (also titled <em>"Darth Vader's Theme"</em>) is a musical theme present in the <em>Star Wars</em> franchise. It was composed by <strong>John Williams</strong> for the film <em>Star Wars: Episode V – The Empire Strikes Back</em>.</p>
+
+                <p>First premiered on April 29, 1980, three weeks before the opening of the film, it is one of the best-known symphonic movie themes in cinematic history and a classic example of a <em>leitmotif</em>—a recurring musical phrase associated with a specific character or idea.</p>
+
+                <div class="audio-player-box">
+                    <div>🎵 <strong>Synthesizer Audio Demo</strong></div>
+                    <button type="button" onclick="playImperialMarch()">Play Imperial March Synth</button>
+                </div>
+
+                <h2>Overview & Impact</h2>
+                <p>The motif is heavily associated with Darth Vader and the Galactic Empire. It is primarily built around a martial brass melody set over a driving rhythm, evoking power, order, and looming conflict.</p>
+            </div>
+
+            <div class="infobox">
+                <h3>The Imperial March</h3>
+                <table>
+                    <tr>
+                        <td class="label">Composer:</td>
+                        <td>John Williams</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Premiere:</td>
+                        <td>April 29, 1980</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Franchise:</td>
+                        <td><em>Star Wars</em></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Key:</td>
+                        <td>G minor</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="alphabet-index">
+            <span>Browse by letter:</span>
+            <a href="search.html?search=A">A</a> |
+            <a href="search.html?search=B">B</a> |
+            <a href="search.html?search=C">C</a> |
+            <a href="search.html?search=D">D</a> |
+            <a href="search.html?search=E">E</a> |
+            <a href="search.html?search=F">F</a> |
+            <a href="search.html?search=G">G</a> |
+            <a href="search.html?search=H">H</a> |
+            <a href="search.html?search=I">I</a> |
+            <a href="search.html?search=J">J</a> |
+            <a href="search.html?search=K">K</a> |
+            <a href="search.html?search=L">L</a> |
+            <a href="search.html?search=M">M</a> |
+            <a href="search.html?search=N">N</a> |
+            <a href="search.html?search=O">O</a> |
+            <a href="search.html?search=P">P</a> |
+            <a href="search.html?search=Q">Q</a> |
+            <a href="search.html?search=R">R</a> |
+            <a href="search.html?search=S">S</a> |
+            <a href="search.html?search=T">T</a> |
+            <a href="search.html?search=U">U</a> |
+            <a href="search.html?search=V">V</a> |
+            <a href="search.html?search=W">W</a> |
+            <a href="search.html?search=X">X</a> |
+            <a href="search.html?search=Y">Y</a> |
+            <a href="search.html?search=Z">Z</a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Search submit handler with 50 character length limit
+function handleSearch(event) {
+    event.preventDefault();
+    const query = document.getElementById('wikiSearchInput').value;
+    const MAX_LENGTH = 50;
+
+    if (query.length > MAX_LENGTH) {
+        window.location.href = '404.html';
+    } else {
+        window.location.href = 'search.html?search=' + encodeURIComponent(query);
+    }
+}
+
+// Web Audio API Synthesizer to play the Imperial March melody
+function playImperialMarch() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+
+    const notes = [
+        { f: 440, d: 500 }, { f: 440, d: 500 }, { f: 440, d: 500 },
+        { f: 349.23, d: 350 }, { f: 523.25, d: 150 }, { f: 440, d: 500 },
+        { f: 349.23, d: 350 }, { f: 523.25, d: 150 }, { f: 440, d: 1000 }
+    ];
+
+    let time = ctx.currentTime;
+
+    notes.forEach(note => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.value = note.f;
+
+        gain.gain.setValueAtTime(0.2, time);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + (note.d / 1000));
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(time);
+        osc.stop(time + (note.d / 1000));
+
+        time += (note.d / 1000) + 0.05;
+    });
+}
+</script>
+
+</body>
+</html>
