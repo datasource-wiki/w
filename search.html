@@ -177,6 +177,19 @@
 </div>
 
 <script>
+let wikiIndex = [];
+
+// Load the wiki index on page load
+async function loadWikiIndex() {
+    try {
+        const response = await fetch('wikiindex.json');
+        const data = await response.json();
+        wikiIndex = data.index || [];
+    } catch (error) {
+        console.error('Failed to load wiki index:', error);
+    }
+}
+
 // Search Handler with >50 character redirect check
 function handleSearch(event) {
     event.preventDefault();
@@ -190,8 +203,23 @@ function handleSearch(event) {
     }
 }
 
+// Search through wiki index
+function searchWiki(query) {
+    if (!query) return [];
+    
+    const lowerQuery = query.toLowerCase();
+    return wikiIndex.filter(item => {
+        const titleMatch = item.title.toLowerCase().includes(lowerQuery);
+        const snippetMatch = item.snippet.toLowerCase().includes(lowerQuery);
+        const keywordsMatch = item.keywords.some(keyword => keyword.includes(lowerQuery));
+        return titleMatch || snippetMatch || keywordsMatch;
+    });
+}
+
 // Render dynamic results based on URL parameter
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+    await loadWikiIndex();
+    
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('search') || '';
 
@@ -201,18 +229,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (query) {
         searchInput.value = query;
-        summaryEl.innerHTML = `Showing mock results for: <strong>"${escapeHTML(query)}"</strong>`;
-
-        resultsList.innerHTML = `
-            <li class="result-item">
-                <div class="result-title"><a href="datasource.html">${escapeHTML(query)} - DataSource Overview</a></div>
-                <div class="result-snippet">An introductory guide and index matching your query term "${escapeHTML(query)}".</div>
-            </li>
-            <li class="result-item">
-                <div class="result-title"><a href="datasource.html">Advanced ${escapeHTML(query)} Concepts</a></div>
-                <div class="result-snippet">Explore deeper technical topics related to ${escapeHTML(query)} on the DataSource Wiki.</div>
-            </li>
-        `;
+        const results = searchWiki(query);
+        
+        if (results.length > 0) {
+            summaryEl.innerHTML = `Found <strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for: <strong>"${escapeHTML(query)}"</strong>`;
+            resultsList.innerHTML = results.map(result => `
+                <li class="result-item">
+                    <div class="result-title"><a href="${escapeHTML(result.path)}">${escapeHTML(result.title)}</a></div>
+                    <div class="result-snippet">${escapeHTML(result.snippet)}</div>
+                </li>
+            `).join('');
+        } else {
+            summaryEl.innerHTML = `No results found for: <strong>"${escapeHTML(query)}"</strong>`;
+            resultsList.innerHTML = '';
+        }
     } else {
         summaryEl.textContent = 'Please enter a search term above or select a letter below.';
     }
