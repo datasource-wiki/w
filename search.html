@@ -208,6 +208,17 @@ function searchWiki(query) {
     if (!query) return [];
     
     const lowerQuery = query.toLowerCase();
+    
+    // If single letter, search for titles/keywords starting with that letter
+    if (query.length === 1) {
+        return wikiIndex.filter(item => {
+            const titleStartsWith = item.title.toLowerCase().startsWith(lowerQuery);
+            const keywordStartsWith = item.keywords.some(keyword => keyword.startsWith(lowerQuery));
+            return titleStartsWith || keywordStartsWith;
+        });
+    }
+    
+    // For multi-character queries, search anywhere in titles, snippets, and keywords
     return wikiIndex.filter(item => {
         const titleMatch = item.title.toLowerCase().includes(lowerQuery);
         const snippetMatch = item.snippet.toLowerCase().includes(lowerQuery);
