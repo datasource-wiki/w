@@ -1,15 +1,9 @@
 {
   "index": [
     {
-      "title": "The Imperial March (Darth Vader's Theme)",
-      "path": "wiki/Music/Star-Wars/Imperial-March.html",
-      "snippet": "A musical theme present in the Star Wars franchise composed by John Williams. Premiered on April 29, 1980.",
-      "keywords": ["imperial", "march", "darth", "vader", "theme", "star", "wars", "john", "williams", "music"]
-    },
-    {
       "title": "The Imperial March (Darth Vader's Theme) - Movie",
       "path": "wiki/Music/Movie/Star-Wars/Imperial-March.html",
-      "snippet": "The iconic Imperial March theme from Star Wars movies composed by John Williams, featuring a martial brass melody.",
+      "snippet": "The iconic Darth Vader theme from Star Wars movies composed by John Williams, featuring a martial brass melody.",
       "keywords": ["imperial", "march", "movie", "star", "wars", "john", "williams", "music", "composer"]
     }
   ]
