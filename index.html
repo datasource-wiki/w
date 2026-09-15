@@ -95,6 +95,46 @@
         }
         .welcome-box h2 { border-bottom: none; margin-top: 0; }
 
+        /* Newest article section styles */
+        .newest-article {
+            background-color: #e7f3ff;
+            border: 2px solid #0645ad;
+            padding: 1.5em;
+            margin-bottom: 1.5em;
+            border-radius: 4px;
+        }
+        .newest-article h2 {
+            border-bottom: none;
+            margin-top: 0;
+            color: #0645ad;
+        }
+        .newest-article .article-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 0.5em 0;
+        }
+        .newest-article .article-title a {
+            color: #0645ad;
+        }
+        .newest-article .article-snippet {
+            margin: 0.8em 0;
+            font-style: italic;
+            color: #404040;
+        }
+        .newest-article .article-keywords {
+            margin-top: 0.8em;
+            font-size: 0.9em;
+        }
+        .newest-article .keyword-tag {
+            display: inline-block;
+            background-color: #d0e8ff;
+            padding: 0.2em 0.5em;
+            margin-right: 0.3em;
+            margin-bottom: 0.3em;
+            border-radius: 2px;
+            font-size: 0.85em;
+        }
+
         /* Alphabetical index styles */
         .alphabet-index {
             margin: 1.5em 0;
@@ -134,6 +174,8 @@
                 <p>The free wiki that covers everything.</p>
             </div>
 
+            <div id="newest-article-container"></div>
+
             <div class="alphabet-index">
                 <span>Browse by letter:</span>
                 <a href="search.html?search=A">A</a> |
@@ -169,6 +211,41 @@
 </div>
 
 <script>
+// Load the newest article from wikiindex.json
+async function loadNewestArticle() {
+    try {
+        const response = await fetch('wikiindex.json');
+        const data = await response.json();
+        
+        if (data.index && data.index.length > 0) {
+            const newestArticle = data.index[0];
+            const container = document.getElementById('newest-article-container');
+            
+            let keywordHtml = '';
+            if (newestArticle.keywords && newestArticle.keywords.length > 0) {
+                keywordHtml = '<div class="article-keywords">' +
+                    newestArticle.keywords.map(kw => 
+                        `<span class="keyword-tag">${kw}</span>`
+                    ).join('') +
+                    '</div>';
+            }
+            
+            container.innerHTML = `
+                <div class="newest-article">
+                    <h2>Latest Article</h2>
+                    <div class="article-title">
+                        <a href="${newestArticle.path}">${newestArticle.title}</a>
+                    </div>
+                    <div class="article-snippet">${newestArticle.snippet}</div>
+                    ${keywordHtml}
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading wiki index:', error);
+    }
+}
+
 function handleSearch(event) {
     event.preventDefault();
     const query = document.getElementById('wikiSearchInput').value;
@@ -180,6 +257,9 @@ function handleSearch(event) {
         window.location.href = 'search.html?search=' + encodeURIComponent(query);
     }
 }
+
+// Load newest article when page loads
+document.addEventListener('DOMContentLoaded', loadNewestArticle);
 </script>
 
 </body>
