@@ -1,0 +1,141 @@
+name: Interactive Wiki Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'Wiki page title'
+        required: true
+        type: string
+      content:
+        description: 'Wiki page content (HTML)'
+        required: true
+        type: string
+      add_infobox:
+        description: 'Add infobox?'
+        required: true
+        type: choice
+        options:
+          - 'no'
+          - 'yes'
+      infobox_data:
+        description: 'Infobox data (JSON format, e.g., {"key1":"value1","key2":"value2"})'
+        required: false
+        type: string
+
+jobs:
+  generate-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Create wiki page
+        run: python -c "
+import json
+
+title = '''${{ github.event.inputs.title }}'''
+content = '''${{ github.event.inputs.content }}'''
+add_infobox = '''${{ github.event.inputs.add_infobox }}''' == 'yes'
+infobox_data = '''${{ github.event.inputs.infobox_data }}'''
+
+with open('datasource-wiki-page.txt', 'w') as f:
+    f.write('''<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>''' + title + '''</title>
+    <link rel=\"stylesheet\" href=\"wiki-style.css\">
+</head>
+<body>
+
+<div id=\"container\">
+    <div id=\"header-tabs\">
+        <div class=\"header-logo-group\">
+            <a href=\"index.html\">DataSource Wiki</a>
+        </div>
+        <form class=\"top-search-group\" onsubmit=\"handleSearch(event)\">
+            <input type=\"text\" id=\"wikiSearchInput\" placeholder=\"Search DataSource Wiki...\">
+            <button type=\"submit\">Search</button>
+        </form>
+    </div>
+
+    <div id=\"content\">
+        <h1 id=\"firstHeading\">''' + title + '''</h1>
+
+        <div class=\"article-box\">
+            <div class=\"article-body\">
+''' + content)
+    
+    if add_infobox and infobox_data:
+        f.write('''
+                <div class=\"infobox\">
+                    <h3>''' + title + '''</h3>
+                    <table>''')
+        try:
+            data = json.loads(infobox_data)
+            for key, value in data.items():
+                f.write(f'''
+                        <tr>
+                            <td class=\"label\">{key}</td>
+                            <td>{value}</td>
+                        </tr>''')
+        except json.JSONDecodeError:
+            print('Warning: Invalid JSON for infobox data')
+        
+        f.write('''
+                    </table>
+                </div>''')
+    
+    f.write('''
+            </div>
+
+        <div class=\"alphabet-index\">
+            <span>Browse by letter:</span>
+            <a href=\"search.html?search=A\">A</a> |
+            <a href=\"search.html?search=B\">B</a> |
+            <a href=\"search.html?search=C\">C</a> |
+            <a href=\"search.html?search=D\">D</a> |
+            <a href=\"search.html?search=E\">E</a> |
+            <a href=\"search.html?search=F\">F</a> |
+            <a href=\"search.html?search=G\">G</a> |
+            <a href=\"search.html?search=H\">H</a> |
+            <a href=\"search.html?search=I\">I</a> |
+            <a href=\"search.html?search=J\">J</a> |
+            <a href=\"search.html?search=K\">K</a> |
+            <a href=\"search.html?search=L\">L</a> |
+            <a href=\"search.html?search=M\">M</a> |
+            <a href=\"search.html?search=N\">N</a> |
+            <a href=\"search.html?search=O\">O</a> |
+            <a href=\"search.html?search=P\">P</a> |
+            <a href=\"search.html?search=Q\">Q</a> |
+            <a href=\"search.html?search=R\">R</a> |
+            <a href=\"search.html?search=S\">S</a> |
+            <a href=\"search.html?search=T\">T</a> |
+            <a href=\"search.html?search=U\">U</a> |
+            <a href=\"search.html?search=V\">V</a> |
+            <a href=\"search.html?search=W\">W</a> |
+            <a href=\"search.html?search=X\">X</a> |
+            <a href=\"search.html?search=Y\">Y</a> |
+            <a href=\"search.html?search=Z\">Z</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>''')
+
+print('Wiki page generated successfully!')
+"
+      
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add datasource-wiki-page.txt
+          git commit -m "Generate wiki page: ${{ github.event.inputs.title }}" || echo "No changes to commit"
+          git push
