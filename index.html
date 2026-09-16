@@ -230,14 +230,14 @@ async function loadNewestArticle() {
                     '</div>';
             }
             
-            container.innerHTML = `
+            container.innerHTML = `<a href="${newestArticle.path}">
                 <div class="newest-article">
                     <h2>Latest Article</h2>
                     <div class="article-title">
-                        <a href="${newestArticle.path}">${newestArticle.title}</a>
+                        ${newestArticle.title}
                     </div>
                     <div class="article-snippet">${newestArticle.snippet}</div>
-                </div>
+                </div></a>
             `;
         }
     } catch (error) {
