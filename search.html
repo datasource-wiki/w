@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - DataSource Wiki</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: sans-serif;
+            background-color: #f6f6f6;
+            color: #202122;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        #container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #header-tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8em 2.5em;
+            background-color: #ffffff;
+            border-bottom: 1px solid #a2a9b1;
+            font-size: 0.85em;
+        }
+        .header-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        .header-logo-group a {
+            color: #0645ad;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .top-search-group {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+        }
+        .top-search-group input[type="text"] {
+            padding: 0.4em 0.6em;
+            font-size: 0.85em;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+            width: 250px;
+        }
+        .top-search-group button {
+            padding: 0.4em 0.8em;
+            font-size: 0.85em;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .top-search-group button:hover {
+            background-color: #eef1f4;
+        }
+        #content {
+            padding: 2em 2.5em;
+            flex: 1;
+        }
+        h1#firstHeading {
+            font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+            font-size: 1.8em;
+            font-weight: normal;
+            border-bottom: 1px solid #a2a9b1;
+            margin-top: 0;
+            padding-bottom: 0.2em;
+        }
+        a { color: #0645ad; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Search result styling */
+        .search-summary {
+            font-size: 0.9em;
+            color: #54595d;
+            margin-bottom: 1.5em;
+        }
+        .results-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .result-item {
+            margin-bottom: 1.5em;
+        }
+        .result-title {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .result-snippet {
+            font-size: 0.9em;
+            color: #202122;
+        }
+
+        /* Alphabetical index styles */
+        .alphabet-index {
+            margin-top: 3em;
+            padding: 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            text-align: center;
+            font-size: 0.95em;
+            line-height: 2em;
+        }
+        .alphabet-index span {
+            font-weight: bold;
+            margin-right: 0.5em;
+            display: block;
+        }
+        .alphabet-index a {
+            padding: 0 0.3em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="header-tabs">
+        <div class="header-logo-group">
+            <a href="index.html">DataSource Wiki</a>
+        </div>
+        <form class="top-search-group" onsubmit="handleSearch(event)">
+            <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div id="content">
+        <h1 id="firstHeading">Search Results</h1>
+        <div class="search-summary" id="searchSummary">Showing results for your search...</div>
+
+        <ul class="results-list" id="resultsList">
+            </ul>
+
+        <div class="alphabet-index">
+            <span>Browse by letter:</span>
+            <a href="search.html?search=A">A</a> |
+            <a href="search.html?search=B">B</a> |
+            <a href="search.html?search=C">C</a> |
+            <a href="search.html?search=D">D</a> |
+            <a href="search.html?search=E">E</a> |
+            <a href="search.html?search=F">F</a> |
+            <a href="search.html?search=G">G</a> |
+            <a href="search.html?search=H">H</a> |
+            <a href="search.html?search=I">I</a> |
+            <a href="search.html?search=J">J</a> |
+            <a href="search.html?search=K">K</a> |
+            <a href="search.html?search=L">L</a> |
+            <a href="search.html?search=M">M</a> |
+            <a href="search.html?search=N">N</a> |
+            <a href="search.html?search=O">O</a> |
+            <a href="search.html?search=P">P</a> |
+            <a href="search.html?search=Q">Q</a> |
+            <a href="search.html?search=R">R</a> |
+            <a href="search.html?search=S">S</a> |
+            <a href="search.html?search=T">T</a> |
+            <a href="search.html?search=U">U</a> |
+            <a href="search.html?search=V">V</a> |
+            <a href="search.html?search=W">W</a> |
+            <a href="search.html?search=X">X</a> |
+            <a href="search.html?search=Y">Y</a> |
+            <a href="search.html?search=Z">Z</a>
+        </div>
+    </div>
+</div>
+
+<script>
+let wikiIndex = [];
+
+// Load the wiki index on page load
+async function loadWikiIndex() {
+    try {
+        const response = await fetch('wikiindex.json');
+        const data = await response.json();
+        wikiIndex = data.index || [];
+    } catch (error) {
+        console.error('Failed to load wiki index:', error);
+    }
+}
+
+// Search Handler with >50 character redirect check
+function handleSearch(event) {
+    event.preventDefault();
+    const query = document.getElementById('wikiSearchInput').value;
+    const MAX_LENGTH = 50;
+
+    if (query.length > MAX_LENGTH) {
+        window.location.href = '404.html';
+    } else {
+        window.location.href = 'search.html?search=' + encodeURIComponent(query);
+    }
+}
+
+// Search through wiki index
+function searchWiki(query) {
+    if (!query) return [];
+    
+    const lowerQuery = query.toLowerCase();
+    
+    // If single letter, search for titles/keywords starting with that letter
+    if (query.length === 1) {
+        return wikiIndex.filter(item => {
+            const titleStartsWith = item.title.toLowerCase().startsWith(lowerQuery);
+            const keywordStartsWith = item.keywords.some(keyword => keyword.startsWith(lowerQuery));
+            return titleStartsWith || keywordStartsWith;
+        });
+    }
+    
+    // For multi-character queries, search anywhere in titles, snippets, and keywords
+    return wikiIndex.filter(item => {
+        const titleMatch = item.title.toLowerCase().includes(lowerQuery);
+        const snippetMatch = item.snippet.toLowerCase().includes(lowerQuery);
+        const keywordsMatch = item.keywords.some(keyword => keyword.includes(lowerQuery));
+        return titleMatch || snippetMatch || keywordsMatch;
+    });
+}
+
+// Render dynamic results based on URL parameter
+window.addEventListener('DOMContentLoaded', async () => {
+    await loadWikiIndex();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('search') || '';
+
+    const summaryEl = document.getElementById('searchSummary');
+    const resultsList = document.getElementById('resultsList');
+    const searchInput = document.getElementById('wikiSearchInput');
+
+    if (query) {
+        searchInput.value = query;
+        const results = searchWiki(query);
+        
+        if (results.length > 0) {
+            summaryEl.innerHTML = `Found <strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for: <strong>"${escapeHTML(query)}"</strong>`;
+            resultsList.innerHTML = results.map(result => `
+                <li class="result-item">
+                    <div class="result-title"><a href="${escapeHTML(result.path)}">${escapeHTML(result.title)}</a></div>
+                    <div class="result-snippet">${escapeHTML(result.snippet)}</div>
+                </li>
+            `).join('');
+        } else {
+            summaryEl.innerHTML = `No results found for: <strong>"${escapeHTML(query)}"</strong>`;
+            resultsList.innerHTML = '';
+        }
+    } else {
+        summaryEl.textContent = 'Please enter a search term above or select a letter below.';
+    }
+});
+
+function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+}
+</script>
+
+</body>
+</html>

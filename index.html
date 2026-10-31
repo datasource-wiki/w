@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | DataSource Wiki</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: sans-serif;
+            background-color: #f6f6f6;
+            color: #202122;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        #container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+        }
+        #sidebar {
+            width: 170px;
+            padding: 1em;
+            font-size: 0.85em;
+            border-right: 1px solid #a7d7f9;
+            background-color: #f6f6f6;
+            flex-shrink: 0;
+        }
+        #sidebar img.logo { width: 135px; margin-bottom: 1em; }
+        #sidebar ul { list-style-type: none; padding: 0; margin: 0 0 1.5em 0; }
+        #sidebar li { margin-bottom: 0.4em; }
+        #sidebar a { color: #0645ad; text-decoration: none; }
+        #sidebar a:hover { text-decoration: underline; }
+        #main { flex: 1; display: flex; flex-direction: column; }
+        
+        /* Header search bar styles */
+        #header-search {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.8em 2.5em;
+            background-color: #ffffff;
+            border-bottom: 1px solid #a2a9b1;
+        }
+        .top-search-group {
+            display: flex;
+            gap: 0.3em;
+        }
+        .top-search-group input[type="text"] {
+            padding: 0.4em 0.6em;
+            font-size: 0.85em;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+            width: 250px;
+        }
+        .top-search-group button {
+            padding: 0.4em 0.8em;
+            font-size: 0.85em;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .top-search-group button:hover {
+            background-color: #eef1f4;
+        }
+
+        #content { padding: 1.5em 2.5em; flex: 1; }
+        h1#firstHeading {
+            font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+            font-size: 1.8em;
+            font-weight: normal;
+            border-bottom: 1px solid #a2a9b1;
+            margin-top: 0;
+            padding-bottom: 0.2em;
+        }
+        h2 {
+            font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+            font-weight: normal;
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 0.1em;
+            margin-top: 1em;
+        }
+        a { color: #0645ad; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        a.new { color: #ba0000; }
+        .welcome-box {
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            padding: 1.2em;
+            margin-bottom: 1.5em;
+            text-align: center;
+        }
+        .welcome-box h2 { border-bottom: none; margin-top: 0; }
+
+        /* Newest article section styles */
+        .newest-article {
+            background-color: #e7f3ff;
+            border: 2px solid #0645ad;
+            padding: 1.5em;
+            margin-bottom: 1.5em;
+            border-radius: 4px;
+        }
+        .newest-article h2 {
+            border-bottom: none;
+            margin-top: 0;
+            color: #0645ad;
+        }
+        .newest-article .article-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 0.5em 0;
+        }
+        .newest-article .article-title a {
+            color: #0645ad;
+        }
+        .newest-article .article-snippet {
+            margin: 0.8em 0;
+            font-style: italic;
+            color: #404040;
+        }
+        .newest-article .article-keywords {
+            margin-top: 0.8em;
+            font-size: 0.9em;
+        }
+        .newest-article .keyword-tag {
+            display: inline-block;
+            background-color: #d0e8ff;
+            padding: 0.2em 0.5em;
+            margin-right: 0.3em;
+            margin-bottom: 0.3em;
+            border-radius: 2px;
+            font-size: 0.85em;
+        }
+
+        /* Alphabetical index styles */
+        .alphabet-index {
+            margin: 1.5em 0;
+            padding: 0.8em;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            text-align: center;
+            font-size: 0.95em;
+            line-height: 2em;
+        }
+        .alphabet-index span {
+            font-weight: bold;
+            margin-right: 0.5em;
+            display: block;
+        }
+        .alphabet-index a {
+            padding: 0 0.3em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+
+
+    <div id="main">
+        <div id="header-search">
+            <form class="top-search-group" onsubmit="handleSearch(event)">
+                <input type="text" id="wikiSearchInput" placeholder="Search DataSource Wiki...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+            <div class="welcome-box">
+                <h2>Welcome to DataSource Wiki</h2>
+                <p>The free wiki that covers everything.</p>
+            </div>
+
+            <div id="newest-article-container"></div>
+
+            <div class="alphabet-index">
+                <span>Browse by letter:</span>
+                <a href="search.html?search=A">A</a> |
+                <a href="search.html?search=B">B</a> |
+                <a href="search.html?search=C">C</a> |
+                <a href="search.html?search=D">D</a> |
+                <a href="search.html?search=E">E</a> |
+                <a href="search.html?search=F">F</a> |
+                <a href="search.html?search=G">G</a> |
+                <a href="search.html?search=H">H</a> |
+                <a href="search.html?search=I">I</a> |
+                <a href="search.html?search=J">J</a> |
+                <a href="search.html?search=K">K</a> |
+                <a href="search.html?search=L">L</a> |
+                <a href="search.html?search=M">M</a> |
+                <a href="search.html?search=N">N</a> |
+                <a href="search.html?search=O">O</a> |
+                <a href="search.html?search=P">P</a> |
+                <a href="search.html?search=Q">Q</a> |
+                <a href="search.html?search=R">R</a> |
+                <a href="search.html?search=S">S</a> |
+                <a href="search.html?search=T">T</a> |
+                <a href="search.html?search=U">U</a> |
+                <a href="search.html?search=V">V</a> |
+                <a href="search.html?search=W">W</a> |
+                <a href="search.html?search=X">X</a> |
+                <a href="search.html?search=Y">Y</a> |
+                <a href="search.html?search=Z">Z</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+// Load the newest article from wikiindex.json
+async function loadNewestArticle() {
+    try {
+        const response = await fetch('wikiindex.json');
+        const data = await response.json();
+        
+        if (data.index && data.index.length > 0) {
+            const newestArticle = data.index[0];
+            const container = document.getElementById('newest-article-container');
+            
+            let keywordHtml = '';
+            if (newestArticle.keywords && newestArticle.keywords.length > 0) {
+                keywordHtml = '<div class="article-keywords">' +
+                    newestArticle.keywords.map(kw => 
+                        `<span class="keyword-tag">${kw}</span>`
+                    ).join('') +
+                    '</div>';
+            }
+            
+            container.innerHTML = `<a href="${newestArticle.path}">
+                <div class="newest-article">
+                    <h2>Latest Article</h2>
+                    <div class="article-title">
+                        ${newestArticle.title}
+                    </div>
+                    <div class="article-snippet">${newestArticle.snippet}</div>
+                </div></a>
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading wiki index:', error);
+    }
+}
+
+function handleSearch(event) {
+    event.preventDefault();
+    const query = document.getElementById('wikiSearchInput').value;
+    const MAX_LENGTH = 200;
+
+    if (query.length > MAX_LENGTH) {
+        window.location.href = '404.html';
+    } else {
+        window.location.href = 'search.html?search=' + encodeURIComponent(query);
+    }
+}
+
+// Load newest article when page loads
+document.addEventListener('DOMContentLoaded', loadNewestArticle);
+</script>
+
+</body>
+</html>

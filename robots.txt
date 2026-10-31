@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://datasource-wiki.github.io/w/sitemap.xml
